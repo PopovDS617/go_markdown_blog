@@ -1,7 +1,11 @@
-BINARY_NAME=myapp
+BINARY_NAME=app
+DSN="host=localhost port=5432 user=postgres password=password dbname=postgres sslmode=disable timezone=UTC connect_timeout=5"
 HTTP_PORT="9000"
 LOCAL_BIN:=$(CURDIR)/bin
 
+## getdeps: installs dependencies
+getdeps:
+	GOBIN=$(LOCAL_BIN) go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
 ## build: Build binary
 build:
@@ -12,7 +16,7 @@ build:
 ## run: builds and runs the application
 run: build
 	@echo "Starting..."
-	@env  HTTP_PORT=${HTTP_PORT} ./bin/${BINARY_NAME} &
+	@env DSN=${DSN} REDIS=${REDIS} HTTP_PORT=${HTTP_PORT} ./bin/${BINARY_NAME} &
 	@echo "Started!"
 
 ## clean: runs go clean and deletes binaries
@@ -25,8 +29,10 @@ clean:
 ## start: an alias to run
 start: run
 
+## race: checks for data race
 race:
 	cd ./cmd && \
+	export DSN=${DSN} && \
 	export HTTP_PORT=${HTTP_PORT} && \
 	go run -race .
 
@@ -43,18 +49,27 @@ restart: stop start
 test:
 	go test -v ./...
 
+## testrace: checks tests for data race
 testrace:
 	go test -race -v ./...
 
-
+## testcov: collects test coverage
 testcov:
 	go test -coverprofile=coverage.out -v ./...
 
+## testout: displays test coverage as html in browser
 testout:
 	go tool cover -html=coverage.out
 
-## docker up and down
+## du: starts all the docker-compose containers in detached mode
 du:
 	docker-compose up -d
-dd:
+
+## dd: stops all docker-compose containers
+dd :
 	docker-compose down
+
+## lint: runs linter for all files in the project
+lint:
+	cd ./bin && \
+	golangci-lint run ../...
