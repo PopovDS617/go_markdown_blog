@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>A static page</title>
+    {{/*
+    <link rel="stylesheet" href="/stylesheets/main.css" />
+    */}}
+  </head>
+  <body>
+    <header>
+      <h1><a href="#">Go markdown blog</a></h1>
+    </header>
+
+    <main>
+      <section>
+        {{range .}}
+        <a href="/{{.File}}"><h2 class="h2_home">{{.Title}} ({{.Date}})</h2></a>
+        <p>{{.Summary}}</p>
+        {{end}}
+      </section>
+    </main>
+
+    <aside>
+      <h3>Links</h3>
+      <ul>
+        <li><a href="https://go.dev/doc/" rel="me">go docs</a></li>
+        <li>
+          <a href="https://gobyexample.com/" rel="me">go by example</a>
+        </li>
+        <li>
+          <a href="https://github.com/golang/go" rel="me">go repo</a>
+        </li>
+      </ul>
+    </aside>
+
+    <footer>
+      <h3>Footer</h3>
+      <ul>
+        <li>
+          Built with go<a href="https://github.com/PopovDS617/go_markdown_blog"
+            >Source</a
+          >
+        </li>
+      </ul>
+    </footer>
+  </body>
+</html>

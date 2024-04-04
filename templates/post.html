@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>A static page</title>
+    {{/*
+    <link rel="stylesheet" href="/stylesheets/main.css" />
+    */}}
+  </head>
+  <body>
+    <header>
+      <h1><a href="#">Go markdown blog</a></h1>
+    </header>
+    <main>
+      <article>
+        <h2 class="title">{{.Title}}</h2>
+        <h3 class="date">{{.Date}}</h3>
+        <!-- <a href="/{{.File}}"><h2>{{.Title}}</h2></a> -->
+        <p>Estimated reading time:<span class="ert"></span></p>
+        <p class="text">{{.Body}}</p>
+      </article>
+    </main>
+  </body>
+</html>
