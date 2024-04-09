@@ -7,7 +7,7 @@ on:
     branches: [main, master]
 
 jobs:
-  gomarkdownblog:
+  gomarkdownblog_lint:
     name: gomarkdownblog
     runs-on: ubuntu-latest
     steps:

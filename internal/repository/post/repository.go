@@ -36,17 +36,6 @@ func (r repo) GetAll() ([]PostData, error) {
 
 	}
 
-	// var result []model.Post
-
-	// for _, v := range posts {
-
-	// 	post := FromPostRepoModelToModel(v)
-
-	// 	result = append(result, post)
-	// }
-
-	// return result, nil
-
 	return result, nil
 }
 

@@ -39,7 +39,7 @@ func (s Service) GetPostBySlug(slug string) (model.Post, error) {
 	body := strings.Join(lines[4:], "\n")
 	htmlBody := template.HTML(blackfriday.MarkdownCommon([]byte(body)))
 	post = model.Post{Status: status, Title: title, Date: date, Summary: summary, Body: htmlBody,
-		//  r.URL.Path[1:]
+
 		File: slug,
 	}
 
