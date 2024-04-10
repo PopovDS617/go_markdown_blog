@@ -51,8 +51,8 @@ func (s *serviceProvider) initHTTPRouter() *http.ServeMux {
 	if s.HTTPRouter == nil {
 		mux := http.NewServeMux()
 
-		mux.HandleFunc("GET /posts/{slug}/", s.Implementation.GetBySlug)
-		mux.HandleFunc("GET /posts/", s.Implementation.GetList)
+		mux.HandleFunc("GET /{slug}/", s.Implementation.GetBySlug)
+		mux.HandleFunc("GET /", s.Implementation.GetList)
 
 		s.HTTPRouter = mux
 

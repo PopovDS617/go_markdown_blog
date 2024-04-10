@@ -41,7 +41,14 @@ func (a *App) initDeps() error {
 }
 
 func (a *App) initServer() {
-	server := httpServer.NewServer(a.serviceProvider.HTTPRouter)
+
+	postRouter := a.serviceProvider.HTTPRouter
+	cssRouter := httpServer.NewCSSRouter().Mux
+
+	server := httpServer.NewServer()
+
+	server.AddRouter(postRouter, "/posts")
+	server.AddRouter(cssRouter, "/css")
 
 	a.httpServer = *server
 }

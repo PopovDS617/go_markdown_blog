@@ -8,11 +8,19 @@ type HTTPServer struct {
 	mux *http.ServeMux
 }
 
-func NewServer(router *http.ServeMux) *HTTPServer {
+func NewServer() *HTTPServer {
+
+	mux := http.NewServeMux()
 
 	return &HTTPServer{
-		mux: router,
+		mux,
 	}
+
+}
+
+func (s *HTTPServer) AddRouter(router *http.ServeMux, pattern string) {
+
+	s.mux.Handle(pattern+"/", http.StripPrefix(pattern, router))
 
 }
 
