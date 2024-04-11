@@ -6,7 +6,7 @@ import (
 )
 
 // exports as logger
-var globalLogger *zap.Logger
+var globalLogger = Init()
 
 func Init() *zap.Logger {
 	encoderCfg := zap.NewProductionEncoderConfig()
