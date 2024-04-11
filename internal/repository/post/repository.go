@@ -21,7 +21,7 @@ func (r repo) GetAll() ([]PostData, error) {
 	for _, f := range files {
 		var postData PostData
 
-		file := strings.Replace(f, "posts/", "", -1)
+		file := strings.Replace(f, "assets/posts/", "", -1)
 		file = strings.Replace(file, ".md", "", -1)
 		fileread, err := os.ReadFile(f)
 
