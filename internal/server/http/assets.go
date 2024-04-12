@@ -2,17 +2,29 @@ package http
 
 import "net/http"
 
-type CSSRouter struct {
+type Router struct {
 	Mux *http.ServeMux
 }
 
-func NewCSSRouter() *CSSRouter {
+func NewCSSRouter() *Router {
 
 	mux := http.NewServeMux()
 
 	mux.Handle("/", http.FileServer(http.Dir("assets/css")))
 
-	return &CSSRouter{
+	return &Router{
+		Mux: mux,
+	}
+
+}
+
+func NewImageRouter() *Router {
+
+	mux := http.NewServeMux()
+
+	mux.Handle("/", http.FileServer(http.Dir("assets/images")))
+
+	return &Router{
 		Mux: mux,
 	}
 
