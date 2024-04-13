@@ -3,14 +3,11 @@ package post
 import (
 	"encoding/json"
 	"fmt"
-	"gomarkdownblog/internal/logger"
 	"net/http"
 )
 
 func (i *Implementation) GetBySlug(w http.ResponseWriter, r *http.Request) {
 	slug := r.PathValue("slug")
-
-	logger.Info(slug)
 
 	if slug == "" {
 		w.WriteHeader(400)
