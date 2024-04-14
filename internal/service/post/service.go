@@ -43,13 +43,6 @@ func (s Service) GetPostBySlug(slug string) (model.Post, error) {
 		File: slug,
 	}
 
-	// t := template.New("post.html")
-	// t, _ = t.ParseFiles("post.html")
-	// if err := t.Execute(w, post); err != nil {
-	// 	w.WriteHeader(http.StatusBadRequest)
-	// 	return
-	// }
-
 	return post, nil
 
 }

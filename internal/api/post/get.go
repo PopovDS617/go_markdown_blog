@@ -1,9 +1,9 @@
 package post
 
 import (
-	"encoding/json"
-	"fmt"
+	"gomarkdownblog/internal/logger"
 	"net/http"
+	"text/template"
 )
 
 func (i *Implementation) GetBySlug(w http.ResponseWriter, r *http.Request) {
@@ -18,18 +18,26 @@ func (i *Implementation) GetBySlug(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 
-		fmt.Println(err)
-
-		if err.Error() != "file not found" {
-			w.WriteHeader(http.StatusBadRequest)
-			return
-		}
+		logger.Error(err.Error())
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
-	w.WriteHeader(http.StatusUnauthorized)
-	json.NewEncoder(w).Encode(post)
+	t := template.New("post.html")
+	t, err = t.ParseFiles("templates/post.html")
+
+	if err != nil {
+		logger.Error(err.Error())
+
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	if err := t.Execute(w, post); err != nil {
+		logger.Error(err.Error())
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
 
 }
 
@@ -42,7 +50,17 @@ func (i *Implementation) GetList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.WriteHeader(http.StatusUnauthorized)
-	json.NewEncoder(w).Encode(posts)
+	t := template.New("index.html")
+	t, err = t.ParseFiles("templates/index.html")
+	if err != nil {
+		logger.Error(err.Error())
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	if err := t.Execute(w, posts); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
 
 }
