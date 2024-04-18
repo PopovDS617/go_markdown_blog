@@ -5,19 +5,34 @@
     <title>A static page</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
     <link rel="stylesheet" href="/css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Jersey+20&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <header>
-      <h1><a href="/">Go markdown blog</a></h1>
+    <img class="logo" src="/images/go-logo.svg" />
+    <header class="header">
+      <h2><a href="/">Go markdown blog</a></h1>
     </header>
-    <main>
-      <article class="content">
-        <h2 class="title">{{.Title}}</h2>
-        <h3 class="date">{{.Date}}</h3>
-        <!-- <a href="/{{.File}}"><h2>{{.Title}}</h2></a> -->
-        <p>Estimated reading time:<span class="ert"></span></p>
+    <main class="layout">
+      <a href="/" class="return-link">⬅ return</a>
+      <article class="post-content">
+        <h1 class="heading">{{.Title}}</h2>
+        <h2 class="date"><span>Date:</span> {{.Date}}</h3>
+
         <p>{{.Body}}</p>
       </article>
     </main>
+    <footer class="footer">
+          built with go -&nbsp; 
+          <a
+            target="_blank"
+            href="https://github.com/PopovDS617/go_markdown_blog"
+            > source</a
+          >
+    </footer>
   </body>
 </html>
