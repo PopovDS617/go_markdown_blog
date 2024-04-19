@@ -47,7 +47,7 @@ func (a *App) initServer() {
 
 	server := httpServer.NewServer()
 
-	server.AddRouter(postRouter, "/posts")
+	server.AddRouter(postRouter, "")
 	server.AddRouter(cssRouter, "/css")
 
 	a.httpServer = *server

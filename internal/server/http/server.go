@@ -20,7 +20,13 @@ func NewServer() *HTTPServer {
 
 func (s *HTTPServer) AddRouter(router *http.ServeMux, pattern string) {
 
-	s.mux.Handle(pattern+"/", http.StripPrefix(pattern, router))
+	if pattern != "" {
+
+		s.mux.Handle(pattern+"/", http.StripPrefix(pattern, router))
+	} else {
+		s.mux.Handle("/", router)
+
+	}
 
 }
 
