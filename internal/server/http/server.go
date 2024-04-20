@@ -18,7 +18,7 @@ func NewServer() *HTTPServer {
 
 }
 
-func (s *HTTPServer) AddRouter(router *http.ServeMux, pattern string) {
+func (s *HTTPServer) AddRouter(router http.Handler, pattern string) {
 
 	if pattern != "" {
 
@@ -31,7 +31,13 @@ func (s *HTTPServer) AddRouter(router *http.ServeMux, pattern string) {
 }
 
 func (s *HTTPServer) Run() error {
-	if err := http.ListenAndServe(":8000", s.mux); err != nil {
+
+	server := http.Server{
+		Addr:    ":8000",
+		Handler: s.mux,
+	}
+
+	if err := server.ListenAndServe(); err != nil {
 		return err
 	}
 	return nil

@@ -1,6 +1,7 @@
 package app
 
 import (
+	"gomarkdownblog/internal/middleware"
 	httpServer "gomarkdownblog/internal/server/http"
 )
 
@@ -44,11 +45,15 @@ func (a *App) initServer() {
 
 	postRouter := a.serviceProvider.HTTPRouter
 	cssRouter := httpServer.NewCSSRouter().Mux
+	imagesRouter := httpServer.NewImageRouter().Mux
+
+	middlewareChain := middleware.CreateMiddlewareStack(middleware.Caching, middleware.CORS)
 
 	server := httpServer.NewServer()
 
-	server.AddRouter(postRouter, "")
-	server.AddRouter(cssRouter, "/css")
+	server.AddRouter(middlewareChain(postRouter), "")
+	server.AddRouter(middlewareChain(cssRouter), "/css")
+	server.AddRouter(middlewareChain(imagesRouter), "/images")
 
 	a.httpServer = *server
 }
