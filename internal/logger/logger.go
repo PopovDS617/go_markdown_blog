@@ -27,9 +27,6 @@ func Init() *zap.Logger {
 		ErrorOutputPaths: []string{
 			"stderr",
 		},
-		// InitialFields: map[string]interface{}{
-		// 	"pid": os.Getpid(),
-		// },
 	}
 
 	return zap.Must(config.Build())
