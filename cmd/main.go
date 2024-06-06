@@ -8,10 +8,10 @@ import (
 func main() {
 	app, err := app.NewApp()
 	if err != nil {
-		logger.Fatal("err")
+		logger.Fatal("failed to init the app " + err.Error())
 	}
 	if app.Run(); err != nil {
-		logger.Fatal("err")
+		logger.Fatal("failed to run the app" + err.Error())
 	}
 
 }
