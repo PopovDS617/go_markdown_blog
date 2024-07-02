@@ -1,8 +1,8 @@
 package app
 
 import (
+	httpServer "gomarkdownblog/internal/http"
 	"gomarkdownblog/internal/middleware"
-	httpServer "gomarkdownblog/internal/server/http"
 )
 
 type App struct {

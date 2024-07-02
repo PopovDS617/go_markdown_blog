@@ -1,5 +1,4 @@
 BINARY_NAME=app
-DSN="host=localhost port=5432 user=postgres password=password dbname=postgres sslmode=disable timezone=UTC connect_timeout=5"
 HTTP_PORT="9000"
 LOCAL_BIN:=$(CURDIR)/bin
 
@@ -16,7 +15,7 @@ build:
 ## run: builds and runs the application
 run: build
 	@echo "Starting..."
-	@env DSN=${DSN} REDIS=${REDIS} HTTP_PORT=${HTTP_PORT} ./bin/${BINARY_NAME} &
+	@env HTTP_PORT=${HTTP_PORT} ./bin/${BINARY_NAME} &
 	@echo "Started!"
 
 ## clean: runs go clean and deletes binaries
@@ -32,7 +31,6 @@ start: run
 ## race: checks for data race
 race:
 	cd ./cmd && \
-	export DSN=${DSN} && \
 	export HTTP_PORT=${HTTP_PORT} && \
 	go run -race .
 
