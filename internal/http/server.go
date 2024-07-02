@@ -1,19 +1,32 @@
 package http
 
 import (
+	"fmt"
 	"net/http"
+	"os"
 )
 
 type HTTPServer struct {
-	mux *http.ServeMux
+	server *http.Server
+	mux    *http.ServeMux
+	port   string
 }
 
 func NewServer() *HTTPServer {
 
+	httpPort := os.Getenv("HTTP_PORT")
+
 	mux := http.NewServeMux()
 
+	server := &http.Server{
+		Addr:    fmt.Sprintf(":%s", httpPort),
+		Handler: mux,
+	}
+
 	return &HTTPServer{
-		mux,
+		server: server,
+		mux:    mux,
+		port:   httpPort,
 	}
 
 }
@@ -21,7 +34,6 @@ func NewServer() *HTTPServer {
 func (s *HTTPServer) AddRouter(router http.Handler, pattern string) {
 
 	if pattern != "" {
-
 		s.mux.Handle(pattern+"/", http.StripPrefix(pattern, router))
 	} else {
 		s.mux.Handle("/", router)
@@ -32,13 +44,5 @@ func (s *HTTPServer) AddRouter(router http.Handler, pattern string) {
 
 func (s *HTTPServer) Run() error {
 
-	server := http.Server{
-		Addr:    ":8000",
-		Handler: s.mux,
-	}
-
-	if err := server.ListenAndServe(); err != nil {
-		return err
-	}
-	return nil
+	return s.server.ListenAndServe()
 }
